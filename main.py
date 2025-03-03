@@ -1,17 +1,26 @@
-def main():
+import sys
+from stats import get_num_words
+
+if len(sys.argv) != 2:
+    print("Usage: python3 main.py <path_to_book>")
+    print(sys.argv)
+    sys.exit(1)
+else:
+    fileName = sys.argv[1]
+
+
+def main(filename):
     fileContents = ""
     # open file and save content
-    with open("books/frankenstein.txt") as f:
+    with open(filename) as f:
         fileContents = f.read()
-
-    # print content
-    #print(fileContents)
-    
+ 
     # Book Report
-    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"--- Begin report of {fileName} ---")
 
     # count words
-    print(f"{len(fileContents.split())} words found in the document")
+    #print(f"{len(fileContents.split())} words found in the document")
+    get_num_words(fileContents)
 
     # count characters
     def countChar(fileContents):
@@ -26,9 +35,9 @@ def main():
     def charAnalysis(result):
         for letter in result:
             if letter.isalpha():
-                print(f"The '{letter}' character was found {result[letter]} times")
+                print(f"{letter}: {result[letter]}")
         return
 
     charAnalysis(countChar(fileContents))
 
-main()
+main(fileName)
